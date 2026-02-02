@@ -8,6 +8,7 @@ import { useSession,signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import BookingSuccessModal from "@/components/BookingSuccessModal";
 import loadRazorpayScript from "@/utils/loadRazorpay";
+import Spinner from "@/components/Spinner";
 
 
 
@@ -374,7 +375,13 @@ useEffect(() => {
 }, [mentor, availability.allowedDurations]);
 
 
-if (loading || !mentor) return null;
+if (loading || !mentor) {
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-[#F9FBFC]">
+      <Spinner />
+    </main>
+  );
+}
 
 
  
