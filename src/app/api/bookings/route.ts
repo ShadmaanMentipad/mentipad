@@ -3,26 +3,21 @@ import connectDB from "@/lib/db";
 import Booking from "@/models/Booking";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-
+import { sendBookingEmail } from "@/lib/sendMail";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
 
   if (!session || session.user.role !== "admin") {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   await connectDB();
 
-  const bookings = await Booking.find()
-    .sort({ createdAt: -1 });
+  const bookings = await Booking.find().sort({ createdAt: -1 });
 
   return NextResponse.json(bookings);
 }
-
 
 export async function POST(req: Request) {
   await connectDB();
@@ -38,7 +33,6 @@ export async function POST(req: Request) {
     selectedSlots,
     paidAmount,
   } = body;
-
 
   if (
     !studentEmail ||
@@ -62,8 +56,23 @@ export async function POST(req: Request) {
     date,
     duration,
     selectedSlots,
-    paidAmount, 
+    paidAmount,
   });
+
+  
+  try {
+    await sendBookingEmail({
+      studentName,
+      studentEmail,
+      mentorName,
+      date,
+      duration,
+      selectedSlots,
+      paidAmount,
+    });
+  } catch (err) {
+    console.error("Email sending failed", err);
+  }
 
   return NextResponse.json(booking);
 }
