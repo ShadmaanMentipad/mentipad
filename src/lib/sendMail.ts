@@ -20,24 +20,43 @@ export async function sendBookingEmail({
   paidAmount: number;
 }) {
   const content = `
-  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <h2 style="color: #096CC0;">📌 New Booking Alert</h2>
+  <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+    <h2>New Mentorship Session Booking</h2>
 
-    <p><strong>👤 Student Name:</strong> ${studentName}</p>
-    <p><strong>✉️ Student Email:</strong> ${studentEmail}</p>
-
-    <hr style="margin: 20px 0;" />
-
-    <p><strong>🎓 Mentor:</strong> ${mentorName}</p>
-    <p><strong>📅 Session Date:</strong> ${date}</p>
-    <p><strong>⏱️ Duration:</strong> ${duration} minutes</p>
-    <p><strong>🕒 Preferred Time Slots:</strong><br/> ${selectedSlots.map(slot => `• ${slot}`).join("<br/>")}</p>
+    <p><strong>Student Name:</strong> ${studentName}</p>
+    <p><strong>Student Email:</strong> ${studentEmail}</p>
 
     <hr style="margin: 20px 0;" />
 
-    <p><strong>💰 Amount Paid:</strong> ₹${paidAmount}</p>
+    <p><strong>Mentor:</strong> ${mentorName}</p>
+    <p><strong>Session Date:</strong> ${new Date(date).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })}</p>
+    <p><strong>Session Duration:</strong> ${duration} minutes</p>
 
-    <p style="margin-top: 30px;">You can view this booking in the admin dashboard.</p>
+    <p><strong>Preferred Time Slots:</strong><br/>
+      ${selectedSlots
+        .map((slot) => {
+          const [slotDate, startTime] = slot.split("-");
+          const time = new Date(`${slotDate}T${startTime}:00`);
+          return `${time.toLocaleTimeString("en-IN", {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+          })}`;
+        })
+        .join("<br/>")}
+    </p>
+
+    <hr style="margin: 20px 0;" />
+
+    <p><strong>Total Amount Paid:</strong> ₹${paidAmount}</p>
+
+    <p style="margin-top: 30px;">
+      This is an automated notification. Please log in to the admin dashboard for more details.
+    </p>
   </div>
 `;
 
