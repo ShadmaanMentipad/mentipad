@@ -20,14 +20,27 @@ export async function sendBookingEmail({
   paidAmount: number;
 }) {
   const content = `
-    <h2>New Booking Received</h2>
-    <p><strong>Student:</strong> ${studentName} (${studentEmail})</p>
-    <p><strong>Mentor:</strong> ${mentorName}</p>
-    <p><strong>Date:</strong> ${date}</p>
-    <p><strong>Duration:</strong> ${duration} mins</p>
-    <p><strong>Slots:</strong> ${selectedSlots.join(", ")}</p>
-    <p><strong>Amount Paid:</strong> ₹${paidAmount}</p>
-  `;
+  <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <h2 style="color: #096CC0;">📌 New Booking Alert</h2>
+
+    <p><strong>👤 Student Name:</strong> ${studentName}</p>
+    <p><strong>✉️ Student Email:</strong> ${studentEmail}</p>
+
+    <hr style="margin: 20px 0;" />
+
+    <p><strong>🎓 Mentor:</strong> ${mentorName}</p>
+    <p><strong>📅 Session Date:</strong> ${date}</p>
+    <p><strong>⏱️ Duration:</strong> ${duration} minutes</p>
+    <p><strong>🕒 Preferred Time Slots:</strong><br/> ${selectedSlots.map(slot => `• ${slot}`).join("<br/>")}</p>
+
+    <hr style="margin: 20px 0;" />
+
+    <p><strong>💰 Amount Paid:</strong> ₹${paidAmount}</p>
+
+    <p style="margin-top: 30px;">You can view this booking in the admin dashboard.</p>
+  </div>
+`;
+
 
   return resend.emails.send({
     from: process.env.EMAIL_FROM!,
