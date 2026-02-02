@@ -46,7 +46,7 @@ export default function RootLayout({
       <Head>
         <meta
           name="google-site-verification"
-          content="google-site-verification: googlef0435c4567fbff5a.html"
+          content="googlef0435c4567fbff5a.html"
         />
       </Head>
       <body className={inter.className}>
