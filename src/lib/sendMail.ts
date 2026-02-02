@@ -19,45 +19,49 @@ export async function sendBookingEmail({
   selectedSlots: string[];
   paidAmount: number;
 }) {
-  const content = `
-  <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
-    <h2>New Mentorship Session Booking</h2>
+  const formatSlot = (slot: string) => {
+  const parts = slot.split("-");
+  if (parts.length < 5) return slot;
 
-    <p><strong>Student Name:</strong> ${studentName}</p>
-    <p><strong>Student Email:</strong> ${studentEmail}</p>
+  const [year, month, day, timeStr, durationStr] = parts;
+  const [hour, minute] = timeStr.split(":").map(Number);
+  const duration = parseInt(durationStr, 10);
 
-    <hr style="margin: 20px 0;" />
+ 
+  const start = new Date(+year, +month - 1, +day, hour, minute);
+  const end = new Date(start.getTime() + duration * 60000);
 
-    <p><strong>Mentor:</strong> ${mentorName}</p>
-    <p><strong>Session Date:</strong> ${new Date(date).toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    })}</p>
-    <p><strong>Session Duration:</strong> ${duration} minutes</p>
+  const formatTime = (date: Date) =>
+    date.toLocaleTimeString("en-IN", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
 
-    <p><strong>Preferred Time Slots:</strong><br/>
-      ${selectedSlots
-        .map((slot) => {
-          const [slotDate, startTime] = slot.split("-");
-          const time = new Date(`${slotDate}T${startTime}:00`);
-          return `${time.toLocaleTimeString("en-IN", {
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-          })}`;
-        })
-        .join("<br/>")}
-    </p>
+  return `${formatTime(start)} – ${formatTime(end)}`;
+};
 
-    <hr style="margin: 20px 0;" />
 
-    <p><strong>Total Amount Paid:</strong> ₹${paidAmount}</p>
+const slotDetails = selectedSlots
+  .map((slot, i) => `${i + 1}) ${formatSlot(slot)}`)
+  .join("<br/>");
 
-    <p style="margin-top: 30px;">
-      This is an automated notification. Please log in to the admin dashboard for more details.
-    </p>
-  </div>
+const formattedDate = new Date(date).toLocaleDateString("en-IN", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+});
+
+const content = `
+  <h2>New Mentorship Session Booking</h2>
+  <p><strong>Student Name:</strong> ${studentName}</p>
+  <p><strong>Student Email:</strong> ${studentEmail}</p>
+  <p><strong>Mentor:</strong> ${mentorName}</p>
+  <p><strong>Session Date:</strong> ${formattedDate}</p>
+  <p><strong>Session Duration:</strong> ${duration} minutes</p>
+  <p><strong>Preferred Time Slots:</strong><br/>${slotDetails}</p>
+  <p><strong>Total Amount Paid:</strong> ₹${paidAmount}</p>
+  <p style="margin-top: 12px; color: #555;">This is an automated notification. Please log in to the admin dashboard for more details.</p>
 `;
 
 
