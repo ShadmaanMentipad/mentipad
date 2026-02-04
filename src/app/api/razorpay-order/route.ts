@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   });
 
   const options = {
-    amount: amount * 100, // amount in paise
+    amount: amount * 100, 
     currency,
     receipt: `rcpt_${Date.now()}`,
   };

@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import BookingSuccessModal from "@/components/BookingSuccessModal";
 import loadRazorpayScript from "@/utils/loadRazorpay";
 import Spinner from "@/components/Spinner";
+import { ArrowLeft } from "lucide-react"
 
 
 
@@ -189,6 +190,8 @@ const [showSuccess, setShowSuccess] = useState(false);
 const router = useRouter();
 const [paying, setPaying] = useState(false);
 
+
+
 const handleBooking = async () => {
   if (!mentor) return;
 
@@ -228,7 +231,7 @@ const handleBooking = async () => {
       currency: order.currency,
       order_id: order.id,
       name: "Mentipad",
-      description: `Session with ${mentor.name}`,
+      description: `Session with ${mentorName}`,
       handler: async function (response: any) {
         try {
           await fetch("/api/bookings", {
@@ -348,6 +351,10 @@ const handleDelete = async () => {
   }
 };
 
+const mentorName =
+  mentor?.name
+    ? mentor.name.charAt(0).toUpperCase() + mentor.name.slice(1)
+    : "";
 
 
 const availability = mentor?.availability ?? {
@@ -412,12 +419,17 @@ const startTimes = isWorkingDay
   
   return (
     <main className="bg-[#F9FBFC] px-4 sm:px-10 lg:px-20 py-[40px] lg:py-[60px]">
-      <Link
-        href="/find-mentors"
-        className="inline-block mb-[24px] text-[14px] text-[#096CC0]"
-      >
-        ← Back to mentors
-      </Link>
+     <Link
+  href="/find-mentors"
+  className="inline-flex items-center gap-2 mb-6 text-sm font-medium text-[#096CC0]
+             hover:text-[#075A9E] transition-colors group"
+>
+  <ArrowLeft
+    size={16}
+    className="transition-transform group-hover:-translate-x-1"
+  />
+  Back to mentors
+</Link>
 
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[1.8fr_1fr] gap-[32px]">
 
@@ -494,7 +506,7 @@ const startTimes = isWorkingDay
 ">About</h3>
               <p className="
   text-[#475569]
-  text-[13px] sm:text-[14px] lg:text-[15px]
+  text-[14px] sm:text-[14px] lg:text-[15px]
   leading-[22px] sm:leading-[24px] lg:leading-[26px]
 ">
   {mentor.about}
@@ -511,7 +523,7 @@ const startTimes = isWorkingDay
 ">My Story</h3>
              <p className="
   text-[#475569]
-  text-[13px] sm:text-[14px] lg:text-[15px]
+  text-[14px] sm:text-[14px] lg:text-[15px]
   leading-[22px] sm:leading-[24px] lg:leading-[26px]
 ">{mentor.story}</p>
             </section>
@@ -520,7 +532,7 @@ const startTimes = isWorkingDay
               <h3 className="font-semibold mb-[6px]">How I Mentor</h3>
               <p className="
   text-[#475569]
-  text-[13px] sm:text-[14px] lg:text-[15px]
+  text-[14px] sm:text-[14px] lg:text-[15px]
   leading-[22px] sm:leading-[24px] lg:leading-[26px]
 ">{mentor.mentoringStyle}</p>
             </section>
