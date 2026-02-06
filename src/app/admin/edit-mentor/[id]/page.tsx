@@ -14,6 +14,8 @@ const CATEGORY_OPTIONS = [
   "BSC NURSING",
   "NORCET",
   "UPSC CMS",
+  "MDS NEET",
+  "MDS INICET",
 ];
 
 const LANGUAGE_OPTIONS = [
@@ -304,9 +306,9 @@ export default function EditMentorPage() {
 
    
         <Section title="Mentor Details">
-          <Textarea label="About Mentor" name="about" value={form.about} onChange={handleChange} />
-          <Textarea label="Mentor Story" name="story" value={form.story} onChange={handleChange} />
-          <Textarea label="Mentoring Style" name="mentoringStyle" value={form.mentoringStyle} onChange={handleChange} />
+          <Textarea label="Profile Highlights" name="about" value={form.about} onChange={handleChange} />
+          <Textarea label="My Journey" name="story" value={form.story} onChange={handleChange} />
+          <Textarea label="How I Guide Students" name="mentoringStyle" value={form.mentoringStyle} onChange={handleChange} />
         </Section>
 
        

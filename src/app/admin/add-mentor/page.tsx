@@ -14,6 +14,8 @@ const CATEGORY_OPTIONS = [
   "BSC NURSING",
   "NORCET",
   "UPSC CMS",
+  "MDS NEET",
+  "MDS INICET",
 ];
 
 const LANGUAGE_OPTIONS = [
@@ -294,9 +296,9 @@ router.push(`/mentor/${createdMentor._id}`);
 
        
         <Section title="Mentor Details">
-          <Textarea label="About Mentor" name="about" onChange={handleChange} />
-          <Textarea label="Mentor Story" name="story" onChange={handleChange} />
-          <Textarea label="Mentoring Style" name="mentoringStyle" onChange={handleChange} />
+          <Textarea label="Profile Highlights" name="about" onChange={handleChange} />
+          <Textarea label="My Journey" name="story" onChange={handleChange} />
+          <Textarea label="How I Guide Students" name="mentoringStyle" onChange={handleChange} />
         </Section>
 
         

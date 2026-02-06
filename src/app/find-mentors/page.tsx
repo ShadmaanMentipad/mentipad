@@ -14,6 +14,8 @@ const categories = [
   "BSC NURSING",
   "NORCET",
   "UPSC CMS",
+  "MDS NEET",
+  "MDS INICET",
 ];
 
 export default function FindMentorsPage() {

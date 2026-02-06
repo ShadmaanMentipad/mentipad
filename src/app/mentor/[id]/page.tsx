@@ -10,6 +10,8 @@ import BookingSuccessModal from "@/components/BookingSuccessModal";
 import loadRazorpayScript from "@/utils/loadRazorpay";
 import Spinner from "@/components/Spinner";
 import { ArrowLeft } from "lucide-react"
+import { MessageSquare } from "lucide-react";
+
 
 
 
@@ -503,7 +505,7 @@ const startTimes = isWorkingDay
   text-[14px] sm:text-[15px]
   text-[#0F172A]
   mb-[6px]
-">About</h3>
+">Profile Highlights</h3>
               <p className="
   text-[#475569]
   text-[14px] sm:text-[14px] lg:text-[15px]
@@ -520,7 +522,7 @@ const startTimes = isWorkingDay
   text-[14px] sm:text-[15px]
   text-[#0F172A]
   mb-[6px]
-">My Story</h3>
+">My Journey</h3>
              <p className="
   text-[#475569]
   text-[14px] sm:text-[14px] lg:text-[15px]
@@ -529,7 +531,7 @@ const startTimes = isWorkingDay
             </section>
 
             <section>
-              <h3 className="font-semibold mb-[6px]">How I Mentor</h3>
+              <h3 className="font-semibold mb-[6px]">How I Guide Students</h3>
               <p className="
   text-[#475569]
   text-[14px] sm:text-[14px] lg:text-[15px]
@@ -793,6 +795,39 @@ const startTimes = isWorkingDay
   />
 )}
 
+
+<div className="mt-[16px] text-center">
+  <a
+    href={`https://wa.me/918279489409?text=${encodeURIComponent(
+      `Hi Mentipad Team,
+
+I want to share feedback / a concern regarding my mentoring session.
+
+Mentor: ${mentor?.name}
+Date: ${date}
+`
+    )}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      inline-flex items-center justify-center gap-2
+      w-full h-[44px]
+      rounded-[12px]
+      border border-[#096CC0]/30
+      text-[#096CC0]
+      font-medium text-[14px]
+      hover:bg-[#096CC0]/10
+      transition
+    "
+  >
+    <MessageSquare size={16} />
+    Leave a Review / Report an Issue
+  </a>
+
+  <p className="mt-[6px] text-[12px] text-[#64748B]">
+    After your session, you can share feedback or concerns with our team.
+  </p>
+</div>
 
     </main>
   );

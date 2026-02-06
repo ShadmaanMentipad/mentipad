@@ -25,8 +25,8 @@ export default function Footer() {
             </Link>
 
             <p className="mt-[8px] text-center text-[#475569] text-[14px] sm:text-[16px] leading-[24px] sm:leading-[28px]">
-              One-on-one mentorship sessions with <br />
-              top aspirants and professionals.
+              1:1 Mentorship by AIIMS alumni and <br />
+              top medical professionals.
             </p>
           </div>
 

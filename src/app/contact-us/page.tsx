@@ -77,10 +77,10 @@ export default function ContactPage() {
             <p>
               📧 Email:{" "}
               <a
-                href="mailto:support@mentipad.in"
+                href="mailto:mentipad1@gmail.com"
                 className="text-[#096CC0] font-medium hover:underline"
               >
-                support@mentipad.in
+                mentipad1@gmail.com
               </a>
             </p>
 
